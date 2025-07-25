@@ -42,3 +42,20 @@ export const createPost = async(req, res)=>{
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+const getPostById = async(req, res) => {
+    try {
+        const postId = req.params.postId;
+        const post = await Post.findById(postId);
+        
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        post.populate('createdBy', 'noOfLikes', 'image', 'title', 'desc');
+        
+        return res.status(200).json(post);
+    } catch (err) {
+        console.error("Error in getPostById:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
