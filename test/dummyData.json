@@ -1,0 +1,60 @@
+{
+  "validUsers": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "password": "password123",
+      "userName": "johndoe123"
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "password": "securePass456",
+      "userName": "janesmith456"
+    },
+    {
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "email": "alice.johnson@example.com",
+      "password": "myPassword789",
+      "userName": "alicejohnson"
+    }
+  ],
+  "testScenarios": {
+    "validRegistration": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "password": "password123",
+      "userName": "johndoe123"
+    },
+    "missingFirstName": {
+      "lastName": "Test",
+      "email": "missing.firstname@example.com",
+      "password": "password123",
+      "userName": "testuser1"
+    },
+    "missingEmail": {
+      "firstName": "Test",
+      "lastName": "User",
+      "password": "password123",
+      "userName": "testuser3"
+    },
+    "emptyFields": {
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "userName": ""
+    },
+    "duplicateEmail": {
+      "firstName": "Duplicate",
+      "lastName": "User",
+      "email": "john.doe@example.com",
+      "password": "duplicatePass123",
+      "userName": "duplicateuser"
+    }
+  }
+}
