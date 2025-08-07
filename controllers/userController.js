@@ -2,7 +2,10 @@
 
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
 
+dotenv.config();
 export const registerUser = async(req, res)=>{
     try{
         const {firstName, lastName, email, password, userName} = req.body
@@ -59,17 +62,19 @@ export const loginUser = async(req, res)=>{
                 message: "Invalid password"
             });
         }
+        // 1. user data object  |  2. JWT SECRET (non-object)  |   3. (object) Token Features(expiry, type, security etc)
+        const token = jwt.sign({
+            id: user._id,
+            email: user.email,
+            userName: user.userName
+        },process.env.JWT_SECRET,{
+            expiresIn:'1d'
+        })
+        console.log("token length",token.length)
+
         return res.status(200).json({
             message: "Login successful",
-            user: {
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                userName: user.userName,
-                postNo: user.posts.length,
-                bio: user.bio,
-            }
+            token
         });
     }
     catch(err){

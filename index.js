@@ -11,7 +11,9 @@ dotenv.config();
 const app = express()
 
 // To enable CORS
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173']
+}));
 // To parse JSON via request body
 app.use(express.json());
 
