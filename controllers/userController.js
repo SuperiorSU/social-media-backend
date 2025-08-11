@@ -82,3 +82,17 @@ export const loginUser = async(req, res)=>{
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+export const getAllUser = async(req, res)=>{
+    try{
+        const users = await User.find({}, '-password')
+        return res.status(200).json({
+            message: "Users fetched successfully",
+            users
+        });
+    }
+    catch(err){
+        console.error("Error in getAllUser:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
