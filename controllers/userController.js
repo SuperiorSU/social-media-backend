@@ -4,6 +4,7 @@ import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
+import { registerEmail } from "../services/emailService.js";
 
 dotenv.config();
 export const registerUser = async(req, res)=>{
@@ -31,6 +32,7 @@ export const registerUser = async(req, res)=>{
         });
 
         await newUser.save();
+        await registerEmail(email, userName)
         return res.status(201).json({
             message: "User registered successfully",
             success: true
