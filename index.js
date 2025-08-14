@@ -13,7 +13,7 @@ const app = express()
 
 // To enable CORS
 app.use(cors({
-  origin: ['http://localhost:5173']
+  origin: '*'
 }));
 // To parse JSON via request body
 app.use(express.json());
