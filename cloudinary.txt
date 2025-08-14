@@ -1,0 +1,39 @@
+npm install cloudinary multer multer-storage-cloudinary dotenv
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+// config/cloudinary.js
+import {v2 as cloudinary} from 'cloudinary'
+import dotenv from 'dotenv';
+dotenv.config();
+
+cloudinary.config({cloud_name:process.env.CLOUDINARY_CLOUD_NAME, api_key:process.env.CLOUDINARY_API_KEY,api_secret:process.env.CLOUDINARY_API_SECRET
+})
+
+export default cloudinary;
+
+// config/multer.js
+import multer from 'multer';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import cloudinary from './cloudinary.js';
+
+const storage= new CloudinaryStorage({
+  cloudinary,
+  params: {folder:'uploads',allowed_formats:['jpg','png','jpeg','webp']}\
+})
+
+const upload=multer({storage});
+
+export default upload;
+upload.single('image'), (req, res) => {
+  try {
+    res.json({
+      message: 'File uploaded successfully',
+      url: req.file.path // Cloudinary URL
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

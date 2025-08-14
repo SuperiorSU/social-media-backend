@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import userRouter from './routes/userRoutes.js';
 import postRouter from './routes/postRoutes.js';
+import fileRouter from './routes/uploadRoutes.js';
 
 
 
@@ -20,6 +21,7 @@ app.use(express.json());
 // user api routes 
 app.use('/api/users', userRouter)
 app.use('/api/post', postRouter)
+app.use('/api/uploads', fileRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
